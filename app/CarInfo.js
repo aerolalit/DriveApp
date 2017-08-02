@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, Picker, StyleSheet } from 'react-native'
+import { View, Image, Text, Picker, StyleSheet } from 'react-native'
 
 class CarInfo extends Component {
 
    state = {weather: 'Sun',
             speed: 100,
-            fuel: 30, 
+            fuel: 30,
             destination: 20,
             initialPosition: 'unknown',
             lastPosition: 'unknown',
@@ -28,7 +28,7 @@ class CarInfo extends Component {
          (error) => alert(error.message),
          { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
       );
-    
+
       this.watchID = navigator.geolocation.watchPosition((position) => {
          const lastPosition = JSON.stringify(position.coords.speed);
          const Heading = JSON.stringify(position.coords.heading);
@@ -38,7 +38,7 @@ class CarInfo extends Component {
 
          var lat = JSON.stringify(position.coords.latitude);  // prepare for JSON
          var long = JSON.stringify(position.coords.longitude);
-         
+
       });
    }
 
@@ -70,7 +70,7 @@ class CarInfo extends Component {
                <Picker.Item label = "Strong Wind" value = "Strong Wind" />
                <Picker.Item label = "Snow" value = "Snow" />
             </Picker>
-            
+
          </View>
          </View>
       )
@@ -79,24 +79,35 @@ class CarInfo extends Component {
 
 CarInfo.navigationOptions = {
   title: 'Car Info',
+  tabBarIcon: ({ tintColor }) => (
+    <Image
+      source={require('./../Images/informationsymbol.png')}
+      style={[styles.icon, ]}
+    />
+  ),
 };
 
 export default CarInfo
 
 const styles = StyleSheet.create({
-   container: {
-   flex: 1,
-   paddingTop: 22,
-  },
-  item: {
-    padding: 10,
-    fontSize: 30,
-    height: 70,
-    color: 'red'
-  },
-  text: {
-      fontSize: 30,
-      alignSelf: 'center',
-      color: 'red'
-   },
+    container: {
+       flex: 1,
+       paddingTop: 22,
+      },
+
+     icon : {
+          width: 26,
+          height: 26,
+      },
+     item: {
+        padding: 10,
+        fontSize: 30,
+        height: 70,
+        color: 'red'
+      },
+      text: {
+          fontSize: 30,
+          alignSelf: 'center',
+          color: 'red'
+       },
 })

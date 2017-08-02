@@ -82,13 +82,17 @@ import MapView from 'react-native-maps';
 
 
 const styles = StyleSheet.create({
-  map: {
-    ...StyleSheet.absoluteFillObject,
-  },
-  tabIcon: {
-    width: 16,
-    height: 16,
-  },
+      map: {
+        ...StyleSheet.absoluteFillObject,
+      },
+      tabIcon: {
+        width: 16,
+        height: 16,
+    },
+    icon : {
+        width: 26,
+        height: 26,
+    },
 });
 
 export default NavigationScreen

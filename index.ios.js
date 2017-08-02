@@ -6,6 +6,8 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
+  StyleSheet,
+  Image
 } from 'react-native';
 
 //
@@ -15,9 +17,17 @@ import SettingsScreen from './app/SettingsScreen'
 
 import { TabNavigator } from 'react-navigation';
 
-class reactNavigationSample extends Component {
+
+
+class Navigation extends Component {
   static navigationOptions = {
     title: 'Navigation Screen',
+    tabBarIcon: ({ tintColor }) => (
+      <Image
+        source={require('./Images/Navigation.png')}
+        style={[styles.icon, ]}
+      />
+    ),
   };
 
   render(){
@@ -29,10 +39,41 @@ class reactNavigationSample extends Component {
   }
 }
 
+
+class Info extends Component {
+  static navigationOptions = {
+    title: 'Car Info',
+    tabBarIcon: ({ tintColor }) => (
+      <Image
+        source={require('./Images/informationsymbol.png')}
+        style={[styles.icon, ]}
+      />
+    ),
+  };
+
+  render(){
+    const { navigation } = this.props;
+
+    return (
+       <NavigationScreen navigation={ navigation }/>
+    );
+  }
+}
+
+
+
 const SimpleApp = TabNavigator({
-  Home: { screen: reactNavigationSample },
+  Home: { screen: Navigation },
   CarInfo: { screen: CarInfo},
   Settings: {screen: SettingsScreen}
+});
+
+
+const styles = StyleSheet.create({
+    icon : {
+        width: 26,
+        height: 26,
+    },
 });
 
 AppRegistry.registerComponent('DriveApp', () => SimpleApp);
