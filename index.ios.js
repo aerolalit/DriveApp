@@ -18,52 +18,29 @@ import SettingsScreen from './app/SettingsScreen'
 import { TabNavigator } from 'react-navigation';
 
 
-
-class Navigation extends Component {
-  static navigationOptions = {
-    title: 'Navigation Screen',
-    tabBarIcon: ({ tintColor }) => (
-      <Image
-        source={require('./Images/Navigation.png')}
-        style={[styles.icon, ]}
-      />
-    ),
-  };
-
-  render(){
-    const { navigation } = this.props;
-
-    return (
-       <NavigationScreen navigation={ navigation }/>
-    );
-  }
-}
-
-
-class Info extends Component {
-  static navigationOptions = {
-    title: 'Car Info',
-    tabBarIcon: ({ tintColor }) => (
-      <Image
-        source={require('./Images/informationsymbol.png')}
-        style={[styles.icon, ]}
-      />
-    ),
-  };
-
-  render(){
-    const { navigation } = this.props;
-
-    return (
-       <NavigationScreen navigation={ navigation }/>
-    );
-  }
-}
-
-
+//
+// class Navigation extends Component {
+//   static navigationOptions = {
+//     title: 'Navigation Screen',
+//     tabBarIcon: ({ tintColor }) => (
+//       <Image
+//         source={require('./Images/Navigation.png')}
+//         style={[styles.icon, ]}
+//       />
+//     ),
+//   };
+//
+//   render(){
+//     const { navigation } = this.props;
+//
+//     return (
+//        <NavigationScreen navigation={ navigation }/>
+//     );
+//   }
+// }
 
 const SimpleApp = TabNavigator({
-  Home: { screen: Navigation },
+  Home: { screen: NavigationScreen },
   CarInfo: { screen: CarInfo},
   Settings: {screen: SettingsScreen}
 });

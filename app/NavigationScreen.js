@@ -3,7 +3,8 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Image
 } from 'react-native';
 import MapView from 'react-native-maps';
 
@@ -76,10 +77,17 @@ import MapView from 'react-native-maps';
       </View>
     );
   }
-
 }
 
-
+NavigationScreen.navigationOptions = {
+    title: 'Navigation Screen',
+    tabBarIcon: ({ tintColor }) => (
+      <Image
+        source={require('./../Images/Navigation.png')}
+        style={[styles.icon, ]}
+      />
+  )
+};
 
 const styles = StyleSheet.create({
       map: {
