@@ -4,7 +4,6 @@ import React, { PureComponent } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import withCachedChildNavigation from '../../withCachedChildNavigation';
-import NavigationActions from '../../NavigationActions';
 
 import type {
   NavigationScreenProp,
@@ -14,7 +13,7 @@ import type {
   NavigationDrawerScreenOptions,
   NavigationState,
   NavigationStateRoute,
-  ViewStyleProp,
+  Style,
 } from '../../TypeDefinition';
 
 import type { DrawerScene, DrawerItem } from './DrawerView';
@@ -32,7 +31,7 @@ type Props = {
   contentComponent: ReactClass<*>,
   contentOptions?: {},
   screenProps?: {},
-  style?: ViewStyleProp,
+  style?: Style,
 };
 
 /**
@@ -45,14 +44,8 @@ class DrawerSidebar extends PureComponent<void, Props, void> {
     const DrawerScreen = this.props.router.getComponentForRouteName(
       'DrawerClose'
     );
-    const { [routeKey]: childNavigation } = this.props.childNavigationProps;
     return DrawerScreen.router.getScreenOptions(
-      childNavigation.state.index !== undefined // if the child screen is a StackRouter then always show the screen options of its first screen (see #1914)
-        ? {
-            ...childNavigation,
-            state: { ...childNavigation.state, index: 0 },
-          }
-        : childNavigation,
+      this.props.childNavigationProps[routeKey],
       this.props.screenProps
     );
   };
@@ -82,19 +75,9 @@ class DrawerSidebar extends PureComponent<void, Props, void> {
     return null;
   };
 
-  _onItemPress = ({ route, focused }: DrawerItem) => {
+  _onItemPress = ({ route }: DrawerItem) => {
     this.props.navigation.navigate('DrawerClose');
-    if (!focused) {
-      let subAction;
-      // if the child screen is a StackRouter then always navigate to its first screen (see #1914)
-      if (route.index !== undefined && route.index !== 0) {
-        route = ((route: any): NavigationStateRoute);
-        subAction = NavigationActions.navigate({
-          routeName: route.routes[0].routeName,
-        });
-      }
-      this.props.navigation.navigate(route.routeName, undefined, subAction);
-    }
+    this.props.navigation.navigate(route.routeName);
   };
 
   render() {

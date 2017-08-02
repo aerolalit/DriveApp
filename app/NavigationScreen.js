@@ -76,12 +76,19 @@ import MapView from 'react-native-maps';
       </View>
     );
   }
+
 }
+
+
 
 const styles = StyleSheet.create({
   map: {
     ...StyleSheet.absoluteFillObject,
-  }
+  },
+  tabIcon: {
+    width: 16,
+    height: 16,
+  },
 });
 
 export default NavigationScreen

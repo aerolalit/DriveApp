@@ -1,0 +1,71 @@
+import React, { Component } from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+} from 'react-native';
+
+import MapView from 'react-native-maps';
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+  },
+  map: {
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 70,
+    position: 'absolute'
+  },
+  instructions: {
+    textAlign: 'center',
+    color: '#333333',
+    marginBottom: 5,
+  },
+});
+
+
+
+const NavigationScreen = (props)  => {
+  const { navigate } = props.navigation;
+
+
+
+  return (
+    <View style={styles.container}>
+      
+      <MapView
+      style = {styles.map}
+        initialRegion={{
+         latitude: 48.1351,
+         longitude: 11.5820,
+         latitudeDelta: 0.2922,
+         longitudeDelta: 0.0421,
+       }}>
+       <MapView.Marker
+          coordinate = {{
+              latitude: 48.1351,
+              longitude: 11.5820,
+          }}
+       />
+
+      </MapView>
+      <View>
+
+      </View>
+    </View>
+  );
+}
+
+export default NavigationScreen

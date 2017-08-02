@@ -7,6 +7,8 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
 } from 'react-native';
+
+//
 import NavigationScreen from './app/NavigationScreen'
 import CarInfo from './app/CarInfo'
 import SettingsScreen from './app/SettingsScreen'
@@ -22,7 +24,7 @@ class reactNavigationSample extends Component {
     const { navigation } = this.props;
 
     return (
-      <NavigationScreen navigation={ navigation }/>
+       <NavigationScreen navigation={ navigation }/>
     );
   }
 }

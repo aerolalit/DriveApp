@@ -1,0 +1,32 @@
+dependencies: \
+  /Users/lalit/Dropbox/ReactNative/DriveApp/node_modules/react-native/React/Profiler/RCTPerfMonitor.m \
+  /Users/lalit/Dropbox/ReactNative/DriveApp/node_modules/react-native/React/Base/RCTDefines.h \
+  /Users/lalit/Dropbox/ReactNative/DriveApp/node_modules/react-native/React/Base/RCTBridge.h \
+  /Users/lalit/Dropbox/ReactNative/DriveApp/node_modules/react-native/React/Base/RCTBridgeDelegate.h \
+  /Users/lalit/Dropbox/ReactNative/DriveApp/node_modules/react-native/React/Base/RCTJavaScriptLoader.h \
+  /Users/lalit/Dropbox/ReactNative/DriveApp/node_modules/react-native/React/Base/RCTBridgeModule.h \
+  /Users/lalit/Dropbox/ReactNative/DriveApp/node_modules/react-native/React/Base/RCTFrameUpdate.h \
+  /Users/lalit/Dropbox/ReactNative/DriveApp/node_modules/react-native/React/Base/RCTInvalidating.h \
+  /Users/lalit/Dropbox/ReactNative/DriveApp/node_modules/react-native/React/Modules/RCTDevSettings.h \
+  /Users/lalit/Dropbox/ReactNative/DriveApp/node_modules/react-native/React/Profiler/RCTFPSGraph.h \
+  /Users/lalit/Dropbox/ReactNative/DriveApp/node_modules/react-native/React/Base/RCTJavaScriptExecutor.h \
+  /Users/lalit/Dropbox/ReactNative/DriveApp/node_modules/react-native/React/Base/RCTPerformanceLogger.h \
+  /Users/lalit/Dropbox/ReactNative/DriveApp/node_modules/react-native/React/Base/RCTRootView.h \
+  /Users/lalit/Dropbox/ReactNative/DriveApp/node_modules/react-native/React/Modules/RCTUIManager.h \
+  /Users/lalit/Dropbox/ReactNative/DriveApp/node_modules/react-native/React/Views/RCTViewManager.h \
+  /Users/lalit/Dropbox/ReactNative/DriveApp/node_modules/react-native/React/Base/RCTConvert.h \
+  /Users/lalit/Dropbox/ReactNative/DriveApp/node_modules/react-native/React/Views/RCTAnimationType.h \
+  /Users/lalit/Dropbox/ReactNative/DriveApp/node_modules/react-native/React/Views/RCTBorderStyle.h \
+  /Users/lalit/Dropbox/ReactNative/DriveApp/node_modules/react-native/React/Base/RCTLog.h \
+  /Users/lalit/Dropbox/ReactNative/DriveApp/node_modules/react-native/React/Base/RCTAssert.h \
+  /Users/lalit/Dropbox/ReactNative/DriveApp/node_modules/react-native/React/Base/RCTUtils.h \
+  /Users/lalit/Dropbox/ReactNative/DriveApp/node_modules/react-native/React/Views/RCTPointerEvents.h \
+  /Users/lalit/Dropbox/ReactNative/DriveApp/node_modules/react-native/React/Views/RCTTextDecorationLineType.h \
+  /Users/lalit/Dropbox/ReactNative/DriveApp/ios/DerivedData/Build/Products/Debug-iphonesimulator/include/yoga/Yoga.h \
+  /Users/lalit/Dropbox/ReactNative/DriveApp/ios/DerivedData/Build/Products/Debug-iphonesimulator/include/yoga/YGEnums.h \
+  /Users/lalit/Dropbox/ReactNative/DriveApp/ios/DerivedData/Build/Products/Debug-iphonesimulator/include/yoga/YGMacros.h \
+  /Users/lalit/Dropbox/ReactNative/DriveApp/node_modules/react-native/React/Base/RCTEventDispatcher.h \
+  /Users/lalit/Dropbox/ReactNative/DriveApp/node_modules/react-native/React/Views/UIView+React.h \
+  /Users/lalit/Dropbox/ReactNative/DriveApp/node_modules/react-native/React/Views/RCTComponent.h \
+  /Users/lalit/Dropbox/ReactNative/DriveApp/node_modules/react-native/React/Base/RCTBridge+Private.h \
+  /Users/lalit/Dropbox/ReactNative/DriveApp/node_modules/react-native/React/DevSupport/RCTDevMenu.h

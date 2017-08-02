@@ -121,7 +121,6 @@ class TabView extends PureComponent<void, Props, void> {
       <TabBarComponent
         {...props}
         {...tabBarOptions}
-        screenProps={this.props.screenProps}
         navigation={this.props.navigation}
         getLabel={this._getLabel}
         renderIcon={this._renderIcon}
@@ -153,8 +152,9 @@ class TabView extends PureComponent<void, Props, void> {
       screenProps || {}
     );
 
-    const tabBarVisible =
-      options.tabBarVisible == null ? true : options.tabBarVisible;
+    const tabBarVisible = options.tabBarVisible == null
+      ? true
+      : options.tabBarVisible;
 
     if (tabBarComponent !== undefined && tabBarVisible) {
       if (tabBarPosition === 'bottom') {

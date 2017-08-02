@@ -1,6 +1,6 @@
 /** @flow */
 
-import invariant from '../utils/invariant';
+import invariant from 'fbjs/lib/invariant';
 
 import type { NavigationRouteConfigMap } from '../TypeDefinition';
 
@@ -41,7 +41,7 @@ function validateRouteConfigMap(routeConfigs: NavigationRouteConfigMap) {
       invariant(
         typeof routeConfig.screen === 'function',
         `The component for route '${routeName}' must be a ` +
-          'React component. For example:\n\n' +
+          'a React component. For example:\n\n' +
           "import MyScreen from './MyScreen';\n" +
           '...\n' +
           `${routeName}: {\n` +

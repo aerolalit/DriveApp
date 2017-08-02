@@ -9,8 +9,7 @@ import type {
   NavigationAction,
   NavigationScreenProp,
   NavigationState,
-  ViewStyleProp,
-  TextStyleProp,
+  Style,
 } from '../../TypeDefinition';
 
 import type { TabScene } from './TabView';
@@ -33,15 +32,12 @@ type Props = {
   navigation: NavigationScreenProp<NavigationState, NavigationAction>,
   getLabel: (scene: TabScene) => ?(React.Element<*> | string),
   renderIcon: (scene: TabScene) => React.Element<*>,
-  labelStyle?: TextStyleProp,
-  iconStyle?: ViewStyleProp,
+  labelStyle?: Style,
+  iconStyle?: Style,
 };
 
-export default class TabBarTop extends PureComponent<
-  DefaultProps,
-  Props,
-  void
-> {
+export default class TabBarTop
+  extends PureComponent<DefaultProps, Props, void> {
   static defaultProps = {
     activeTintColor: '#fff',
     inactiveTintColor: '#fff',
@@ -75,7 +71,7 @@ export default class TabBarTop extends PureComponent<
     );
     const color = position.interpolate({
       inputRange,
-      outputRange: (outputRange: Array<string>),
+      outputRange,
     });
 
     const tintColor = scene.focused ? activeTintColor : inactiveTintColor;

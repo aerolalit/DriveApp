@@ -19,8 +19,7 @@ export default function withCachedChildNavigation<T: *, N: *>(
   Comp: ReactClass<T & InjectedProps<N>>
 ): ReactClass<T> {
   return class extends PureComponent {
-    static displayName = `withCachedChildNavigation(${Comp.displayName ||
-      Comp.name})`;
+    static displayName = `withCachedChildNavigation(${Comp.displayName || Comp.name})`;
 
     props: T;
 

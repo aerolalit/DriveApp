@@ -2,11 +2,12 @@
 
 import React from 'react';
 
-import { Animated, Easing, StyleSheet, View } from 'react-native';
+import { Animated, StyleSheet, View } from 'react-native';
 
-import invariant from '../utils/invariant';
+import invariant from 'fbjs/lib/invariant';
 
 import NavigationScenesReducer from './ScenesReducer';
+import TransitionConfigs from './TransitionConfigs';
 
 import type {
   NavigationLayout,
@@ -24,8 +25,8 @@ type Props = {
     prevTransitionProps: ?NavigationTransitionProps
   ) => NavigationTransitionSpec,
   navigation: NavigationScreenProp<NavigationState, NavigationAction>,
-  onTransitionEnd?: (...args: Array<mixed>) => void,
-  onTransitionStart?: (...args: Array<mixed>) => void,
+  onTransitionEnd?: () => void,
+  onTransitionStart?: () => void,
   render: (
     transitionProps: NavigationTransitionProps,
     prevTransitionProps: ?NavigationTransitionProps
@@ -40,12 +41,7 @@ type State = {
   scenes: Array<NavigationScene>,
 };
 
-// Used for all animations unless overriden
-const DefaultTransitionSpec = ({
-  duration: 250,
-  easing: Easing.inOut(Easing.ease),
-  timing: Animated.timing,
-}: NavigationTransitionSpec);
+const DefaultTransitionSpec = TransitionConfigs.DefaultTransitionSpec;
 
 class Transitioner extends React.Component<*, Props, State> {
   _onLayout: (event: any) => void;
@@ -161,19 +157,18 @@ class Transitioner extends React.Component<*, Props, State> {
     const positionHasChanged = position.__getValue() !== toValue;
 
     // if swiped back, indexHasChanged == true && positionHasChanged == false
-    const animations =
-      indexHasChanged && positionHasChanged
-        ? [
-            timing(progress, {
-              ...transitionSpec,
-              toValue: 1,
-            }),
-            timing(position, {
-              ...transitionSpec,
-              toValue: nextProps.navigation.state.index,
-            }),
-          ]
-        : [];
+    const animations = indexHasChanged && positionHasChanged
+      ? [
+          timing(progress, {
+            ...transitionSpec,
+            toValue: 1,
+          }),
+          timing(position, {
+            ...transitionSpec,
+            toValue: nextProps.navigation.state.index,
+          }),
+        ]
+      : [];
 
     // update scenes and play the transition
     this._isTransitionRunning = true;

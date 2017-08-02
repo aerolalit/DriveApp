@@ -16,31 +16,27 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import type { ViewStyleProp } from '../TypeDefinition';
+import type { Style } from '../TypeDefinition';
 
 const ANDROID_VERSION_LOLLIPOP = 21;
 
 type Props = {
-  onPress: () => void,
+  onPress: Function,
   delayPressIn?: number,
   borderless?: boolean,
-  pressColor?: string,
+  pressColor?: ?string,
   activeOpacity?: number,
   children?: React.Element<*>,
-  style?: ViewStyleProp,
+  style?: Style,
 };
 
 type DefaultProps = {
-  pressColor: string,
+  pressColor: ?string,
 };
 
-export default class TouchableItem extends Component<
-  DefaultProps,
-  Props,
-  void
-> {
+export default class TouchableItem
+  extends Component<DefaultProps, Props, void> {
   static defaultProps = {
-    borderless: false,
     pressColor: 'rgba(0, 0, 0, .32)',
   };
 
@@ -58,13 +54,14 @@ export default class TouchableItem extends Component<
       Platform.Version >= ANDROID_VERSION_LOLLIPOP
     ) {
       const { style, ...rest } = this.props; // eslint-disable-line no-unused-vars
+
       return (
         <TouchableNativeFeedback
           {...rest}
           style={null}
           background={TouchableNativeFeedback.Ripple(
-            this.props.pressColor || '',
-            this.props.borderless || false
+            this.props.pressColor,
+            this.props.borderless
           )}
         >
           <View style={this.props.style}>

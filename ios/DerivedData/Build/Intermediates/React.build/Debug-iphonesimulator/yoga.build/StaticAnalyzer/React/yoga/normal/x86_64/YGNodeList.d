@@ -1,3 +1,3 @@
 dependencies: \
-  /Users/lalit/Git/driveguard_frontend/node_modules/react-native/ReactCommon/yoga/yoga/YGNodeList.c \
-  /Users/lalit/Git/driveguard_frontend/node_modules/react-native/ReactCommon/yoga/yoga/YGNodeList.h
+  /Users/lalit/Git/DriveApp/node_modules/react-native/ReactCommon/yoga/yoga/YGNodeList.c \
+  /Users/lalit/Git/DriveApp/node_modules/react-native/ReactCommon/yoga/yoga/YGNodeList.h
