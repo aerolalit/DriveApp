@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Image, Text, Picker, StyleSheet } from 'react-native'
+import { View, Button, Image, Text, Picker, StyleSheet } from 'react-native'
 
 class CarInfo extends Component {
 
@@ -55,6 +55,10 @@ class CarInfo extends Component {
     }
     var direction = this.state.Heading;
       return (
+    //       <Button
+    //     onPress={() => this.props.navigation.navigate('Notifications')}
+    //     title="Go to notifications"
+    //   />
         <View style = {styles.container}>
           <Text style={styles.item}>Speed: {speed} km/h</Text>
           <Text style={styles.item}>Fuel left:  {this.state.fuel} l  </Text>

@@ -6,6 +6,8 @@
 import React, { Component } from 'react';
 import {
   AppRegistry,
+  StyleSheet,
+  Image
 } from 'react-native';
 
 //
@@ -15,22 +17,8 @@ import SettingsScreen from './app/SettingsScreen'
 
 import { TabNavigator } from 'react-navigation';
 
-class reactNavigationSample extends Component {
-  static navigationOptions = {
-    title: 'Navigation Screen',
-  };
-
-  render(){
-    const { navigation } = this.props;
-
-    return (
-      <NavigationScreen navigation={ navigation }/>
-    );
-  }
-}
-
 const SimpleApp = TabNavigator({
-  Home: { screen: reactNavigationSample },
+  Home: { screen: NavigationScreen },
   CarInfo: { screen: CarInfo},
   Settings: {screen: SettingsScreen}
 });
