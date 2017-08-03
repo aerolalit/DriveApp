@@ -38,6 +38,8 @@ class CarInfo extends Component {
 
          var lat = JSON.stringify(position.coords.latitude);  // prepare for JSON
          var long = JSON.stringify(position.coords.longitude);
+    /*     this.setState({ lat });
+         this.setState({ long }); */
 
       });
    }
@@ -54,6 +56,26 @@ class CarInfo extends Component {
       speed = 0;
     }
     var direction = this.state.Heading;
+
+    var LAT = this.state.lat;
+    var LONG = this.state.long; 
+    // SENDING TO THE SERVER
+    const file = {
+           latitude: LAT,             
+            longitude: LONG,          
+        }
+
+    const body = new FormData()
+    body.append('file', file)
+
+// insert objective server URL
+    var url = 'https://facebook.github.io/react-native/'
+
+    fetch(url, {
+       method: 'POST',
+       body
+      })
+
       return (
     //       <Button
     //     onPress={() => this.props.navigation.navigate('Notifications')}

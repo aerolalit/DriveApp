@@ -3,8 +3,14 @@
 <plist version="1.0">
 <dict>
 	<key>LastAccessedDate</key>
+<<<<<<< HEAD
 	<date>2017-08-03T08:54:57Z</date>
+||||||| merged common ancestors
+	<date>2017-08-02T19:49:26Z</date>
+=======
+	<date>2017-08-03T11:59:05Z</date>
+>>>>>>> 56721afe05446f3b2b352d32b9e603d57a6bbcca
 	<key>WorkspacePath</key>
-	<string>/Users/lalit/Git/DriveApp/ios/DriveApp.xcodeproj</string>
+	<string>/Users/olegyc/Documents/Internship/DriveApp/ios/DriveApp.xcodeproj</string>
 </dict>
 </plist>
