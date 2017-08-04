@@ -38,8 +38,8 @@ class CarInfo extends Component {
 
          var lat = JSON.stringify(position.coords.latitude);  // prepare for JSON
          var long = JSON.stringify(position.coords.longitude);
-    /*     this.setState({ lat });
-         this.setState({ long }); */
+         this.setState({ lat });
+         this.setState({ long });
 
       });
    }
