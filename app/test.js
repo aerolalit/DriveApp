@@ -10,13 +10,13 @@ export default class Movies extends Component {
   }
 
   componentDidMount() {
-    return fetch('https://facebook.github.io/react-native/movies.json')
+    return fetch('https://driveguard.herokuapp.com/current_events/')
       .then((response) => response.json())
       .then((responseJson) => {
         let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.setState({
           isLoading: false,
-          dataSource: ds.cloneWithRows(responseJson.movies),
+          dataSource: ds.cloneWithRows(responseJson),
         }, function() {
           // do something with new state
         });
@@ -25,6 +25,8 @@ export default class Movies extends Component {
         console.error(error);
       });
   }
+
+
 
   render() {
     if (this.state.isLoading) {
@@ -38,10 +40,14 @@ export default class Movies extends Component {
     return (
       <View style={{flex: 1, paddingTop: 20}}>
         <ListView
-          dataSource={this.state.dataSource}
-          renderRow={(rowData) => <Text>{rowData.title}, {rowData.releaseYear}</Text>}
+        dataSource={this.state.dataSource}
+        renderRow={(rowData) => <Text>{JSON.stringify(rowData)}</Text>}
         />
+
+
       </View>
+
+
     );
   }
 }
