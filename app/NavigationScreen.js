@@ -121,7 +121,7 @@ class NavigationScreen extends Component {
     //alert('Your query count: ' + kek);
   }
 }); 
-    
+
       var lat = parseFloat(state.lat);
       var long = parseFloat(state.long);
 
@@ -148,7 +148,7 @@ class NavigationScreen extends Component {
 
 
         </MapView.Marker>
-        <View >
+        <View style ={{padding:20}}>
         <Text>Latitude {lat}  </Text>
       <Text>Longitude {long}  </Text>
       </View>
