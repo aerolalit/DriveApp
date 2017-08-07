@@ -7,20 +7,22 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
-  Image
+  Image,
 } from 'react-native';
 
 //
 import NavigationScreen from './app/NavigationScreen'
 import CarInfo from './app/CarInfo'
 import SettingsScreen from './app/SettingsScreen'
+import TestScreen from './app/test'
 
 import { TabNavigator } from 'react-navigation';
 
 const SimpleApp = TabNavigator({
-  Home: { screen: NavigationScreen },
+   Test: { screen: TestScreen },
+  NavigationScreen: { screen: NavigationScreen},
   CarInfo: { screen: CarInfo},
-  Settings: {screen: SettingsScreen}
+  Settings: {screen: SettingsScreen},
 });
 
 AppRegistry.registerComponent('DriveApp', () => SimpleApp);

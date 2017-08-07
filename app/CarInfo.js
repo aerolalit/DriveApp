@@ -62,18 +62,15 @@ class CarInfo extends Component {
     var LONG = this.state.long; 
     // SENDING TO THE SERVER
     const file = {
-          _id: '59846c8d5564382dcdce7072',
            Latitude: LAT,             
-           Longitude: LONG,     
-           Radius: 15.5,
-           Type: this.state.weather     
+           Longitude: LONG,        
         }
 
     const body = new FormData()
     body.append('file', file)
 
 // insert objective server URL
-    var url = 'http://localhost:8000/future_events/'
+    var url = 'https://facebook.github.io/react-native/'
 
     fetch(url, {
        method: 'POST',
