@@ -78,8 +78,8 @@ var getJSON = function(url, callback) {
     xhr.send();
 };
 
-state = {lat: 0,
-        long: 0}
+state = {lat: null,
+        long: null}
 
 
 class NavigationScreen extends Component {
@@ -130,7 +130,7 @@ class NavigationScreen extends Component {
       
       <MapView
       style = {styles.map}
-        initialRegion={{
+        region={{
          latitude: lat,
          longitude: long,
          latitudeDelta: 0.2922,
