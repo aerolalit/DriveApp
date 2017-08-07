@@ -48,7 +48,6 @@ export default class Movies extends Component {
 
   render() {
     let url = 'https://driveguard.herokuapp.com/future_events/';
-    var kek =0;
 
     getJSON(url, function(err, data) {
   if (err != null) {

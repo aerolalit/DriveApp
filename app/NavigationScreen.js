@@ -5,6 +5,7 @@ import {
   View,
   Button,
   Image,
+  ListView
 } from 'react-native';
 
 import MapView from 'react-native-maps';
@@ -81,7 +82,6 @@ state = {lat: 0,
         long: 0}
 
 
-
 class NavigationScreen extends Component {
   constructor(props) {
     super(props);
@@ -89,12 +89,28 @@ class NavigationScreen extends Component {
       isLoading: true
     }
   }
-  state = {lat: 20,
-        long: 25.55}
+   componentDidMount() {
+    return fetch('https://driveguard.herokuapp.com/future_events/')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        this.setState({
+          isLoading: false,
+          dataSource: ds.cloneWithRows(responseJson.Latitude),
+        }, function() {
+          // do something with new state
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+ 
 
   render(){
 
-     let url = 'https://driveguard.herokuapp.com/future_events/';
+ let url = 'https://driveguard.herokuapp.com/future_events/';
 
     getJSON(url, function(err, data) {
   if (err != null) {
@@ -102,8 +118,10 @@ class NavigationScreen extends Component {
   } else {
     this.state.lat = data.Latitude
     this.state.long = data.Longitude
+    //alert('Your query count: ' + kek);
   }
 }); 
+    
       var lat = parseFloat(state.lat);
       var long = parseFloat(state.long);
 
@@ -128,7 +146,12 @@ class NavigationScreen extends Component {
             </View>
             </View>
 
+
         </MapView.Marker>
+        <View >
+        <Text>Latitude {lat}  </Text>
+      <Text>Longitude {long}  </Text>
+      </View>
 
       </MapView>
 
