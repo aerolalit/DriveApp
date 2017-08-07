@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Button, Image, Text, Picker, StyleSheet } from 'react-native'
 
+
 class CarInfo extends Component {
 
    state = {weather: 'Sun',
@@ -61,15 +62,18 @@ class CarInfo extends Component {
     var LONG = this.state.long; 
     // SENDING TO THE SERVER
     const file = {
-           latitude: LAT,             
-            longitude: LONG,          
+          _id: '59846c8d5564382dcdce7072',
+           Latitude: LAT,             
+           Longitude: LONG,     
+           Radius: 15.5,
+           Type: this.state.weather     
         }
 
     const body = new FormData()
     body.append('file', file)
 
 // insert objective server URL
-    var url = 'https://facebook.github.io/react-native/'
+    var url = 'http://localhost:8000/future_events/'
 
     fetch(url, {
        method: 'POST',
@@ -77,10 +81,6 @@ class CarInfo extends Component {
       })
 
       return (
-    //       <Button
-    //     onPress={() => this.props.navigation.navigate('Notifications')}
-    //     title="Go to notifications"
-    //   />
         <View style = {styles.container}>
           <Text style={styles.item}>Speed: {speed} km/h</Text>
           <Text style={styles.item}>Fuel left:  {this.state.fuel} l  </Text>
