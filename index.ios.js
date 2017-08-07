@@ -19,8 +19,9 @@ import TestScreen from './app/test'
 import { TabNavigator } from 'react-navigation';
 
 const SimpleApp = TabNavigator({
+	  NavigationScreen: { screen: NavigationScreen},
+
    Test: { screen: TestScreen },
-  NavigationScreen: { screen: NavigationScreen},
   CarInfo: { screen: CarInfo},
   Settings: {screen: SettingsScreen},
 });

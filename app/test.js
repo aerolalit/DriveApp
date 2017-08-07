@@ -1,6 +1,24 @@
 import React, { Component } from 'react';
 import { ActivityIndicator, ListView, Text, View } from 'react-native';
 
+var getJSON = function(url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.responseType = 'json';
+    xhr.onload = function() {
+      var status = xhr.status;
+      if (status == 200) {
+        callback(null, xhr.response);
+      } else {
+        callback(status);
+      }
+    };
+    xhr.send();
+};
+
+state = {lat: 0,
+        long: 0}
+
 export default class Movies extends Component {
   constructor(props) {
     super(props);
@@ -10,13 +28,13 @@ export default class Movies extends Component {
   }
 
   componentDidMount() {
-    return fetch('https://driveguard.herokuapp.com/current_events/')
+    return fetch('https://driveguard.herokuapp.com/future_events/')
       .then((response) => response.json())
       .then((responseJson) => {
         let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         this.setState({
           isLoading: false,
-          dataSource: ds.cloneWithRows(responseJson),
+          dataSource: ds.cloneWithRows(responseJson.Latitude),
         }, function() {
           // do something with new state
         });
@@ -29,6 +47,22 @@ export default class Movies extends Component {
 
 
   render() {
+    let url = 'https://driveguard.herokuapp.com/future_events/';
+    var kek =0;
+
+    getJSON(url, function(err, data) {
+  if (err != null) {
+    alert('Something went wrong: ' + err);
+  } else {
+    this.state.lat = data.Latitude
+    this.state.long = data.Longitude
+    //alert('Your query count: ' + kek);
+  }
+}); 
+      var lat = parseFloat(state.lat);
+      var long = parseFloat(state.long);
+
+
     if (this.state.isLoading) {
       return (
         <View style={{flex: 1, paddingTop: 20}}>
@@ -37,11 +71,16 @@ export default class Movies extends Component {
       );
     }
 
-    return (
+    return ( 
       <View style={{flex: 1, paddingTop: 20}}>
+      <Text>Latitude {lat}  </Text>
+      <Text>Longitude {long}  </Text>
+      
+
+
         <ListView
         dataSource={this.state.dataSource}
-        renderRow={(rowData) => <Text>{JSON.stringify(rowData)}</Text>}
+        renderRow={(rowData) => <Text>{rowData}</Text>}
         />
 
 

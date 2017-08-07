@@ -1,84 +1,141 @@
 import React, { Component } from 'react';
 import {
-  AppRegistry,
   StyleSheet,
   Text,
   View,
-  Image
+  Button,
+  Image,
 } from 'react-native';
+
 import MapView from 'react-native-maps';
 
- class NavigationScreen extends Component {
-  state = {
-    mapRegion: null,
-    lastLat: null,
-    lastLong: null,
-  }
 
-  componentDidMount() {
-    this.watchID = navigator.geolocation.watchPosition((position) => {
-      // Create the object to update this.state.mapRegion through the onRegionChange function
-      let region = {
-        latitude:       position.coords.latitude,
-        longitude:      position.coords.longitude,
-        latitudeDelta:  0.00922*1.5,
-        longitudeDelta: 0.00421*1.5
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+  },
+  map: {
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    position: 'absolute'
+  },
+  instructions: {
+    textAlign: 'center',
+    color: '#333333',
+    marginBottom: 5,
+  },
+  radius:{
+    height: 50,
+    width: 50,
+    borderRadius: 50/2,
+    overflow: 'hidden',
+    backgroundColor: 'rgba(0, 122, 255, 0.1)',
+    borderWidth: 1,
+    borderColor: 'rgba(0, 112, 255, 0.3)',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+
+  marker:{
+    height: 20,
+    width: 20,
+    borderWidth: 3,
+    borderColor: 'white',
+    borderRadius: 20/2,
+    overflow: 'hidden',
+    backgroundColor: '#007AFF'
+  },
+  icon : {
+        width: 26,
+        height: 26,
+    },
+
+});
+
+var getJSON = function(url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.responseType = 'json';
+    xhr.onload = function() {
+      var status = xhr.status;
+      if (status == 200) {
+        callback(null, xhr.response);
+      } else {
+        callback(status);
       }
-      this.onRegionChange(region, region.latitude, region.longitude);
-    });
-  }
+    };
+    xhr.send();
+};
 
-  onRegionChange(region, lastLat, lastLong) {
-    this.setState({
-      mapRegion: region,
-      // If there are no new values set use the the current ones
-      lastLat: lastLat || this.state.lastLat,
-      lastLong: lastLong || this.state.lastLong
-    });
-  }
+state = {lat: 0,
+        long: 0}
 
-  componentWillUnmount() {
-    navigator.geolocation.clearWatch(this.watchID);
-  }
 
-  onMapPress(e) {
-    console.log(e.nativeEvent.coordinate.longitude);
-    let region = {
-      latitude:       e.nativeEvent.coordinate.latitude,
-      longitude:      e.nativeEvent.coordinate.longitude,
-      latitudeDelta:  0.00922*1.5,
-      longitudeDelta: 0.00421*1.5
+
+class NavigationScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: true
     }
-    this.onRegionChange(region, region.latitude, region.longitude);
   }
+  state = {lat: 20,
+        long: 25.55}
 
-  render() {
-    return (
-      <View style={{flex: 1}}>
-        <MapView
-          style={styles.map}
-          region={this.state.mapRegion}
-          showsUserLocation={true}
-          followUserLocation={true}
-          onRegionChange={this.onRegionChange.bind(this)}
-          onPress={this.onMapPress.bind(this)}>
-          <MapView.Marker
-            coordinate={{
-              latitude: (this.state.lastLat + 0.00050) || -36.82339,
-              longitude: (this.state.lastLong + 0.00050) || -73.03569,
-            }}>
-            <View>
-              <Text style={{color: '#000'}}>
-                { this.state.lastLong } / { this.state.lastLat }
-              </Text>
+  render(){
+
+     let url = 'https://driveguard.herokuapp.com/future_events/';
+
+    getJSON(url, function(err, data) {
+  if (err != null) {
+    alert('Something went wrong: ' + err);
+  } else {
+    this.state.lat = data.Latitude
+    this.state.long = data.Longitude
+  }
+}); 
+      var lat = parseFloat(state.lat);
+      var long = parseFloat(state.long);
+
+  return (
+    <View style={styles.container}>
+      
+      <MapView
+      style = {styles.map}
+        initialRegion={{
+         latitude: lat,
+         longitude: long,
+         latitudeDelta: 0.2922,
+         longitudeDelta: 0.0421,
+       }}>
+       <MapView.Marker
+          coordinate = {{
+              latitude: lat,
+              longitude: long,
+          }}>
+          <View style = {styles.radius}>
+            <View style = {styles.marker}>
             </View>
-          </MapView.Marker>
-        </MapView>
-      </View>
-    );
-  }
-}
+            </View>
 
+        </MapView.Marker>
+
+      </MapView>
+
+    </View>
+  );
+}
+}
 NavigationScreen.navigationOptions = {
     title: 'Navigation Screen',
     tabBarIcon: ({ tintColor }) => (
@@ -88,19 +145,5 @@ NavigationScreen.navigationOptions = {
       />
   )
 };
-
-const styles = StyleSheet.create({
-      map: {
-        ...StyleSheet.absoluteFillObject,
-      },
-      tabIcon: {
-        width: 16,
-        height: 16,
-    },
-    icon : {
-        width: 26,
-        height: 26,
-    },
-});
 
 export default NavigationScreen
