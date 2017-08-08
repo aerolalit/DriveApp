@@ -48,7 +48,7 @@ export default class Test extends Component {
   testPOST= () => {
       var http = new XMLHttpRequest();
       var url = "https://driveguard.herokuapp.com/position/";
-        var params = "Latitude=10&Longitude=10&Speed=10";
+        var params = "Latitude=53.1666809&Longitude=8.6743724&Speed=100";
         http.open("POST", url, true);
 
         //Send the proper header information along with the request
