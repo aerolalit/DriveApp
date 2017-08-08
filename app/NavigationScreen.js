@@ -109,7 +109,7 @@ class NavigationScreen extends Component {
         console.error(error);
       });
   }
- 
+
 
   render(){
 
@@ -131,14 +131,14 @@ class NavigationScreen extends Component {
           <ActivityIndicator />
         </View>
       );
-    } 
+    }
 
       var lat = parseFloat(state.lat);
       var long = parseFloat(state.long);
       var speed = parseFloat(state.speed)
   return (
     <View style={styles.container}>
-      
+
       <MapView
       style = {styles.map}
         region={{
@@ -164,7 +164,7 @@ class NavigationScreen extends Component {
            <Text style ={{textAlign: 'center'}}>Longitude {long}  </Text>
            <Text style ={{textAlign: 'center'}}>Speed {speed}  km/h </Text>
         </View>
-      
+
 
       </MapView>
 

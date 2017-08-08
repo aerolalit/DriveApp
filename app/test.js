@@ -45,6 +45,25 @@ export default class Test extends Component {
         console.error(error);
       });
   }
+  testPOST= () => {
+      var http = new XMLHttpRequest();
+      var url = "https://driveguard.herokuapp.com/position/";
+        var params = "Latitude=10&Longitude=10&Speed=10";
+        http.open("POST", url, true);
+
+        //Send the proper header information along with the request
+        http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        http.setRequestHeader("Content-length", params.length);
+        http.setRequestHeader("Connection", "close");
+
+        http.onreadystatechange = function() {//Call a function when the state changes.
+        	if(http.readyState == 4 && http.status == 200) {
+        		alert(http.responseText);
+        	}
+        }
+        http.send(params);
+  }
+
 
   _onPressButtonPOST = () => {
       fetch('https://driveguard.herokuapp.com/position/', {
@@ -123,7 +142,7 @@ export default class Test extends Component {
 
       <Button
          title="POST position"
-         onPress={this._onPressButtonPOST}
+         onPress={this.testPOST}
        />
        <Button
           title="GET Position"
