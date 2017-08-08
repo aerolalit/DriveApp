@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, ListView, Button, Alert, Text, View } from 'react-native';
-
+import { ActivityIndicator, TextInput, ListView, Button, Alert, Text, View } from 'react-native';
+// import styles from './styles'
 var getJSON = function(url, callback) {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
@@ -17,7 +17,8 @@ var getJSON = function(url, callback) {
 };
 
 state = {lat: 0,
-        long: 0}
+        long: 0,
+        speed: 0,}
 
 export default class Test extends Component {
   constructor(props) {
@@ -27,7 +28,11 @@ export default class Test extends Component {
     }
 }
 
-
+    textInput = {
+        lat: '10',
+        long: '10',
+        speed: '10',
+    }
 
   componentDidMount() {
     return fetch('https://driveguard.herokuapp.com/position/')
@@ -46,6 +51,7 @@ export default class Test extends Component {
       });
   }
   testPOST= () => {
+    //   alert(this.textInput.lat)
       var http = new XMLHttpRequest();
       var url = "https://driveguard.herokuapp.com/position/";
         var params = "Latitude=53.1666809&Longitude=8.6743724&Speed=100";
@@ -66,29 +72,24 @@ export default class Test extends Component {
 
 
   _onPressButtonPOST = () => {
-      fetch('https://driveguard.herokuapp.com/position/', {
-        method: 'POST',
-        headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        },
+      var http = new XMLHttpRequest();
+      var url = "https://driveguard.herokuapp.com/position/";
+        var params = "Latitude=" + state.lat + "&Longitude=" + state.long + "&Speed=" + state.speed;
 
-        body: JSON.stringify({
-        Latitude: '100',
-        Longitude: '100',
-        Speed: '100',
-        })
-    })
-    .then((response) => response.json())
-     .then((responseJson) => {
-       Alert.alert(
-           'Buttton Pressed',
-           'checkout https://driveguard.herokuapp.com/position  \n to see updates',
-       )
-     })
-     .catch((error) => {
-       console.error(error);
-     });
+        http.open("POST", url, true);
+
+        //Send the proper header information along with the request
+        http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        http.setRequestHeader("Content-length", params.length);
+        http.setRequestHeader("Connection", "close");
+
+        http.onreadystatechange = function() {//Call a function when the state changes.
+          if(http.readyState == 4 && http.status == 200) {
+            //    alert(http.responseText);
+          }
+        }
+        http.send(params);
+        alert("Loation and Speed updated")
 
   };
 
@@ -110,18 +111,29 @@ export default class Test extends Component {
   };
 
 
-  render() {
-    let url = 'https://driveguard.herokuapp.com/position/';
+  _handleTextChange = inputValue => {
+    this.setState({ inputValue });
+    Alert.alert(
+      "Text changed",
+      "what's the text though"
+    )
+  };
 
-    getJSON(url, function(err, data) {
-  if (err != null) {
-    alert('Something went wrong: ' + err);
-  } else {
-    this.state.lat = data.Latitude
-    this.state.long = data.Longitude
-    //alert('Your query count: ' + kek);
+  loadLatLong() {
+      let url = 'https://driveguard.herokuapp.com/position/';
+      getJSON(url, function(err, data) {
+    if (err != null) {
+      alert('Something went wrong: ' + err);
+    } else {
+      state.lat = data.Latitude
+      state.long = data.Longitude
+      state.speed = data.Speed
+    }
+    });
   }
-});
+
+  render() {
+     this.loadLatLong()
       var lat = parseFloat(state.lat);
       var long = parseFloat(state.long);
 
@@ -134,15 +146,51 @@ export default class Test extends Component {
       );
     }
 
+    // <Text>Latitude {lat}  </Text>
+    // <Text>Longitude {long}  </Text>
     return (
       <View style={{flex: 1, paddingTop: 20}}>
-      <Text>Latitude {lat}  </Text>
-      <Text>Longitude {long}  </Text>
+      <Text style = {{color:'black', fontSize:30, fontWeight: 'bold'}} >
+         Enter Latitude:
+      </Text>
+      <TextInput
+            defaultValue = {state.lat}
 
+            maxLength = {3}
+            keyboardType = 'numeric'
+            onChangeText = {(text) => state.lat = text}
+            // value = {this.textInput.lat}
+            style = {{width:200, height: 44, padding:8,color:'blue',backgroundColor: '#ded7c1', borderColor: 'black'}}
+      />
+
+      <Text style = {{color:'black', fontSize:30, fontWeight: 'bold'}} >
+         Enter Longitude:
+      </Text>
+      <TextInput
+            defaultValue = {state.long}
+
+            maxLength = {3}
+            keyboardType = 'numeric'
+            onChangeText = {(text) => state.long = text}
+            // value = {this.textInput.lat}
+            style = {{width:200, height: 44, padding:8,color:'blue',backgroundColor: '#ded7c1', borderColor: 'black'}}
+      />
+
+      <Text style = {{color:'black', fontSize:30, fontWeight: 'bold'}} >
+         Enter Speed:
+      </Text>
+      <TextInput
+            defaultValue = {state.speed}
+            maxLength = {3}
+            keyboardType = 'numeric'
+            onChangeText = {(text) => state.speed = text}
+            // value = {this.textInput.lat}
+            style = {{width:200, height: 44, padding:8,color:'blue',backgroundColor: '#ded7c1', borderColor: 'black'}}
+      />
 
       <Button
          title="POST position"
-         onPress={this.testPOST}
+         onPress={this._onPressButtonPOST}
        />
        <Button
           title="GET Position"
