@@ -5,7 +5,8 @@ import {
   View,
   Button,
   Image,
-  ListView
+  ListView,
+  ActivityIndicator
 } from 'react-native';
 
 import MapView from 'react-native-maps';
@@ -24,6 +25,8 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   map: {
+    flex: 1,
+    justifyContent: 'flex-end',
     left: 0,
     right: 0,
     top: 0,
@@ -79,7 +82,8 @@ var getJSON = function(url, callback) {
 };
 
 state = {lat: null,
-        long: null}
+        long: null,
+          speed: null}
 
 
 class NavigationScreen extends Component {
@@ -90,7 +94,7 @@ class NavigationScreen extends Component {
     }
   }
    componentDidMount() {
-    return fetch('https://driveguard.herokuapp.com/future_events/')
+    return fetch('https://driveguard.herokuapp.com/position/')
       .then((response) => response.json())
       .then((responseJson) => {
         let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -105,12 +109,11 @@ class NavigationScreen extends Component {
         console.error(error);
       });
   }
-
  
 
   render(){
 
- let url = 'https://driveguard.herokuapp.com/future_events/';
+ let url = 'https://driveguard.herokuapp.com/position/';
 
     getJSON(url, function(err, data) {
   if (err != null) {
@@ -118,13 +121,21 @@ class NavigationScreen extends Component {
   } else {
     this.state.lat = data.Latitude
     this.state.long = data.Longitude
+    this.state.speed = data.Speed
     //alert('Your query count: ' + kek);
   }
-}); 
+});
+  if (this.state.isLoading) {
+      return (
+        <View style={{flex: 1, paddingTop: 20}}>
+          <ActivityIndicator />
+        </View>
+      );
+    } 
 
       var lat = parseFloat(state.lat);
       var long = parseFloat(state.long);
-
+      var speed = parseFloat(state.speed)
   return (
     <View style={styles.container}>
       
@@ -133,8 +144,8 @@ class NavigationScreen extends Component {
         region={{
          latitude: lat,
          longitude: long,
-         latitudeDelta: 0.2922,
-         longitudeDelta: 0.0421,
+         latitudeDelta: 0.2922/4,
+         longitudeDelta: 0.0421/4,
        }}>
        <MapView.Marker
           coordinate = {{
@@ -148,10 +159,12 @@ class NavigationScreen extends Component {
 
 
         </MapView.Marker>
-        <View style ={{padding:20}}>
-        <Text>Latitude {lat}  </Text>
-      <Text>Longitude {long}  </Text>
-      </View>
+          <View style ={{paddingTop:0,backgroundColor: 'rgba(240, 48, 144, 0.5)' }}>
+            <Text style ={{textAlign: 'center'}}>Latitude {lat}  </Text>
+           <Text style ={{textAlign: 'center'}}>Longitude {long}  </Text>
+           <Text style ={{textAlign: 'center'}}>Speed {speed}  km/h </Text>
+        </View>
+      
 
       </MapView>
 

@@ -1,15 +1,58 @@
 import React, { Component } from 'react';
-import { View, Button, Image, Text, Picker, StyleSheet } from 'react-native'
 
+
+import React, { Component } from 'react';
+import { View, Button, Image, Text, Picker, StyleSheet, ListView } from 'react-native'
+
+var getJSON = function(url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.responseType = 'json';
+    xhr.onload = function() {
+      var status = xhr.status;
+      if (status == 200) {
+        callback(null, xhr.response);
+      } else {
+        callback(status);
+      }
+    };
+    xhr.send();
+};
 
 class CarInfo extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: true
+    }
+  }
+    componentDidMount() {
+    return fetch('https://driveguard.herokuapp.com/position')
+      .then((response) => response.json())
+      .then((responseJson) => {
+        let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        this.setState({
+          isLoading: false,
+          dataSource: ds.cloneWithRows(responseJson.Latitude),
+        }, function() {
+          // do something with new state
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }
+
+
 
    state = {weather: 'Sun',
-            speed: 100,
+           // speed: 100,
             fuel: 30,
             destination: 20,
-            initialPosition: 'unknown',
-            lastPosition: 'unknown',
+       //     initialPosition: 'unknown',
+     //       lastPosition: 'unknown',
+    //        lat: 0,
+      //      long: 0
             }
 
    updateUser = (weather) => {
@@ -18,71 +61,25 @@ class CarInfo extends Component {
 
    toggleSwitch = (value) => this.setState({ switchValue: value })
 
-   watchID: ?number = null;
-
-   componentDidMount = () => {
-      navigator.geolocation.getCurrentPosition(
-         (position) => {
-            const initialPosition = JSON.stringify(position);
-            this.setState({ initialPosition });
-         },
-         (error) => alert(error.message),
-         { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-      );
-
-      this.watchID = navigator.geolocation.watchPosition((position) => {
-         const lastPosition = JSON.stringify(position.coords.speed);
-         const Heading = JSON.stringify(position.coords.heading);
-         this.setState({ lastPosition });
-         this.setState({ Heading });
-
-
-         var lat = JSON.stringify(position.coords.latitude);  // prepare for JSON
-         var long = JSON.stringify(position.coords.longitude);
-         this.setState({ lat });
-         this.setState({ long });
-
-      });
-   }
-
-   componentWillUnmount = () => {
-      navigator.geolocation.clearWatch(this.watchID);
-   }
-
-
 
    render() {
-    var speed = parseFloat(this.state.lastPosition*3.6).toFixed(2);
-    if (speed <= 0){
-      speed = 0;
-    }
-    var direction = this.state.Heading;
+          let url = 'https://driveguard.herokuapp.com/position';
 
-    var LAT = this.state.lat;
-    var LONG = this.state.long; 
-    // SENDING TO THE SERVER
-    const file = {
-           Latitude: LAT,             
-           Longitude: LONG,        
-        }
-
-    const body = new FormData()
-    body.append('file', file)
-
-// insert objective server URL
-    var url = 'https://facebook.github.io/react-native/'
-
-    fetch(url, {
-       method: 'POST',
-       body
-      })
+    getJSON(url, function(err, data) {
+  if (err != null) {
+    alert('Something went wrong: ' + err);
+  } else {
+    this.state.speed = data.Speed
+    //alert('Your query count: ' + kek);
+  }
+}); 
+      var speed = parseFloat(state.speed);
 
       return (
         <View style = {styles.container}>
           <Text style={styles.item}>Speed: {speed} km/h</Text>
           <Text style={styles.item}>Fuel left:  {this.state.fuel} l  </Text>
           <Text style={styles.item}>Till dest:  {this.state.destination} km  </Text>
-          <Text style={styles.item}>Heading: {direction} </Text>
 
          <View>
             <Text style = {styles.item}>Weather: {this.state.weather}</Text>
@@ -134,3 +131,4 @@ const styles = StyleSheet.create({
           color: 'red'
        },
 })
+

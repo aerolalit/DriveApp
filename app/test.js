@@ -28,7 +28,7 @@ export default class Movies extends Component {
   }
 
   componentDidMount() {
-    return fetch('https://driveguard.herokuapp.com/future_events/')
+    return fetch('https://driveguard.herokuapp.com/position/')
       .then((response) => response.json())
       .then((responseJson) => {
         let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -47,7 +47,7 @@ export default class Movies extends Component {
 
 
   render() {
-    let url = 'https://driveguard.herokuapp.com/future_events/';
+    let url = 'https://driveguard.herokuapp.com/position/';
 
     getJSON(url, function(err, data) {
   if (err != null) {
