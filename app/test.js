@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, TextInput, ListView, Button, Alert, Text, View } from 'react-native';
+import { ActivityIndicator, Picker, TextInput, ListView, Button, Alert, Text, View } from 'react-native';
 // import styles from './styles'
 var getJSON = function(url, callback) {
     var xhr = new XMLHttpRequest();
@@ -18,7 +18,9 @@ var getJSON = function(url, callback) {
 
 state = {lat: 0,
         long: 0,
-        speed: 0,}
+        radius: 0,
+        type: '',
+    }
 
 export default class Test extends Component {
   constructor(props) {
@@ -28,14 +30,9 @@ export default class Test extends Component {
     }
 }
 
-    textInput = {
-        lat: '10',
-        long: '10',
-        speed: '10',
-    }
 
   componentDidMount() {
-    return fetch('https://driveguard.herokuapp.com/position/')
+    return fetch('https://driveguard.herokuapp.com/api/future_events/')
       .then((response) => response.json())
       .then((responseJson) => {
         let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -50,31 +47,11 @@ export default class Test extends Component {
         console.error(error);
       });
   }
-  testPOST= () => {
-    //   alert(this.textInput.lat)
-      var http = new XMLHttpRequest();
-      var url = "https://driveguard.herokuapp.com/position/";
-        var params = "Latitude=53.1666809&Longitude=8.6743724&Speed=100";
-        http.open("POST", url, true);
-
-        //Send the proper header information along with the request
-        http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        http.setRequestHeader("Content-length", params.length);
-        http.setRequestHeader("Connection", "close");
-
-        http.onreadystatechange = function() {//Call a function when the state changes.
-        	if(http.readyState == 4 && http.status == 200) {
-        		alert(http.responseText);
-        	}
-        }
-        http.send(params);
-  }
-
 
   _onPressButtonPOST = () => {
       var http = new XMLHttpRequest();
-      var url = "https://driveguard.herokuapp.com/position/";
-        var params = "Latitude=" + state.lat + "&Longitude=" + state.long + "&Speed=" + state.speed;
+      var url = "https://driveguard.herokuapp.com/api/future_events/";
+        var params = "Latitude=" + state.lat + "&Longitude=" + state.long + "&Radius=" + state.radius + "&Type=" + state.type;
 
         http.open("POST", url, true);
 
@@ -89,12 +66,12 @@ export default class Test extends Component {
           }
         }
         http.send(params);
-        alert("Loation and Speed updated")
+        alert("Future_events posted")
 
   };
 
   _onPressButtonGET = () => {
-      fetch('https://driveguard.herokuapp.com/position/', {
+      fetch('https://driveguard.herokuapp.com/api/future_events/', {
         method: 'GET',
     })
     .then((response) => response.json())
@@ -120,14 +97,15 @@ export default class Test extends Component {
   };
 
   loadLatLong() {
-      let url = 'https://driveguard.herokuapp.com/position/';
+      let url = 'https://driveguard.herokuapp.com/api/future_events/';
       getJSON(url, function(err, data) {
     if (err != null) {
       alert('Something went wrong: ' + err);
     } else {
       state.lat = data.Latitude
       state.long = data.Longitude
-      state.speed = data.Speed
+      state.radius = data.Radius
+      state.type = data.Type
     }
     });
   }
@@ -177,25 +155,39 @@ export default class Test extends Component {
       />
 
       <Text style = {{color:'black', fontSize:30, fontWeight: 'bold'}} >
-         Enter Speed:
+         Enter Radius:
       </Text>
       <TextInput
-            defaultValue = {state.speed}
+            defaultValue = {state.radius}
             maxLength = {3}
             keyboardType = 'numeric'
-            onChangeText = {(text) => state.speed = text}
+            onChangeText = {(text) => state.radius = text}
             // value = {this.textInput.lat}
             style = {{width:200, height: 44, padding:8,color:'blue',backgroundColor: '#ded7c1', borderColor: 'black'}}
       />
 
-      <Button
-         title="POST position"
-         onPress={this._onPressButtonPOST}
-       />
-       <Button
-          title="GET Position"
-          onPress={this._onPressButtonGET}
-        />
+
+        <Picker
+          onValueChange= {(itemValue) => state.type = itemValue}
+          selectedValue={state.type}
+        >
+          <Picker.Item label="Sunny" value="Sunny" />
+          <Picker.Item label="Rain" value="Rain" />
+          <Picker.Item label="Strom" value="Strom" />
+          <Picker.Item label= "Sabin" value= "Sabin" />
+          <Picker.Item label="Tsunami" value="Tsunami" />
+          <Picker.Item label="Snow" value= "Snow" />
+          <Picker.Item label = "Heavy Rain" value = "Heavy Rain" />
+        </Picker>
+
+        <Button
+           title="POST Event"
+           onPress={this._onPressButtonPOST}
+         />
+         <Button
+            title="GET Event"
+            onPress={this._onPressButtonGET}
+          />
       </View>
 
 

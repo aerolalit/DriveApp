@@ -94,7 +94,7 @@ class NavigationScreen extends Component {
     }
   }
    componentDidMount() {
-    return fetch('https://driveguard.herokuapp.com/position/')
+    return fetch('https://driveguard.herokuapp.com/api/position/')
       .then((response) => response.json())
       .then((responseJson) => {
         let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
@@ -113,7 +113,7 @@ class NavigationScreen extends Component {
 
   render(){
 
- let url = 'https://driveguard.herokuapp.com/position/';
+ let url = 'https://driveguard.herokuapp.com/api/position/';
 
     getJSON(url, function(err, data) {
   if (err != null) {
