@@ -59,11 +59,11 @@ class CarInfo extends Component {
     var direction = this.state.Heading;
 
     var LAT = this.state.lat;
-    var LONG = this.state.long; 
+    var LONG = this.state.long;
     // SENDING TO THE SERVER
     const file = {
-           Latitude: LAT,             
-           Longitude: LONG,        
+           Latitude: LAT,
+           Longitude: LONG,
         }
 
     const body = new FormData()

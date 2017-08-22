@@ -153,10 +153,10 @@ export default class Test extends Component {
             // value = {this.textInput.lat}
             style = {{width:200, height: 44, padding:8,color:'blue',backgroundColor: '#ded7c1', borderColor: 'black'}}
       />
-
       <Text style = {{color:'black', fontSize:30, fontWeight: 'bold'}} >
          Enter Radius:
       </Text>
+
       <TextInput
             defaultValue = {state.radius}
             maxLength = {3}
@@ -174,7 +174,6 @@ export default class Test extends Component {
           <Picker.Item label="Sunny" value="Sunny" />
           <Picker.Item label="Rain" value="Rain" />
           <Picker.Item label="Strom" value="Strom" />
-          <Picker.Item label= "Sabin" value= "Sabin" />
           <Picker.Item label="Tsunami" value="Tsunami" />
           <Picker.Item label="Snow" value= "Snow" />
           <Picker.Item label = "Heavy Rain" value = "Heavy Rain" />
