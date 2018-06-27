@@ -26,3 +26,13 @@ How to run
   // requires android environment setup and simulator
   
   ```
+  
+Screenshots of App
+--------------------
+
+![](https://github.com/aerolalit/DriveApp/blob/master/screenshots/nav_sc.png )
+
+
+![](https://github.com/aerolalit/DriveApp/blob/master/screenshots/post_sc.jpg)
+  
+  
